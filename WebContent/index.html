@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>홈입니다</title>
+</head>
+<body>
+	<div id="show"></div>
+	<script>
+        let xhtp = new XMLHttpRequest();
+        xhtp.open('get', 'home')
+        xhtp.send();
+        xhtp.onload = showContent;
+        
+      //  xhtp.onreadystatechange =  () => {
+
+      //      if (xhtp.readyState == 4 && xhtp.status == 200) {
+
+            	
+            	function showContent(){
+                let doc = xhtp.responseXML;
+                let result = doc.querySelectorAll('dataset > record');
+                let tableTag = document.createElement('table');
+                tableTag.setAttribute('border', '1');
+                let trTag = document.createElement('tr');
+                for (let j = 0; j < result[0].childNodes.length; j++) {
+                    let thTag = document.createElement('th');
+                    thTag.innerHTML = result[0].childNodes[j].nodeName.toUpperCase();
+                    trTag.appendChild(thTag);
+                    tableTag.appendChild(thTag);
+                }
+                    for (let i = 0; i < result.length; i++) {
+                        let trTag = document.createElement('tr');
+                        
+                        for (let t = 0; t < 8; t++) {
+                            let tdTag = document.createElement('td');
+                            tdTag.innerHTML = result[i].childNodes[t].childNodes[0].nodeValue;
+                            trTag.appendChild(tdTag);
+                            tableTag.appendChild(trTag);
+                        }
+                    }
+                   document.getElementById('show').appendChild(tableTag);
+                }
+
+            
+        
+
+       //     xhtp.open('get', 'home');
+         //       xhtp.send();
+    </script>
+</body>
+</html>

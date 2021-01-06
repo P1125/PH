@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>boardList.html</title>
+<script src='showPage.js'></script>
+</head>
+<body>
+   <div id="show"></div>
+    <script>
+        let xhtp = new XMLHttpRequest(); 
+        xhtp.open('get', '../putboard');
+        xhtp.send();
+        xhtp.onload = showPage;
+    </script>
+</body>
+</html>
+
+
+<!-- 경로.. get , boardlist를 putboard로 만들어서 최상위경로 ..로 찾아가서 만들기..
+밑의 경로로 가면 Ajax경로로 찾아 간다.
+참조 C:\Dev\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\AjaxWeb -->

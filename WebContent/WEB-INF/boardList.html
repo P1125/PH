@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>boardList.html</title>
+</head>
+<body>
+<!-- 화면에 게시판 데이터 table형식으로 화면에 보이기 -->
+<!-- DAO, Servlet, ajax호출(XMLHttpRequest()) -->
+ <div id="show"></div>
+    <script>
+        let xhtp = new XMLHttpRequest();      
+        xhtp.open('get', 'putboard');    
+        xhtp.send();
+        xhtp.onload = showContent;
+
+            function showContent(){
+                let doc = xhtp.responseXML;
+                let result = doc.getElementsByTagName('record');
+                let table = document.createElement('table');
+                table.setAttribute('border', '1');
+                table.append(createHeader(result[0]));
+                    for (let i = 0; i < result.length; i++) {
+                        let trTag = document.createElement('tr');
+                        for (let t = 0; t < result[i].childNodes.length; t++) {
+                            let tdTag = document.createElement('td');
+                            tdTag.innerHTML = result[i].childNodes[t].childNodes[0].nodeValue;
+                            trTag.appendChild(tdTag);
+                            table.appendChild(trTag);
+                        }
+                    }
+                   document.getElementById('show').appendChild(table);
+                //show.innerHTML = xhtp.responseText;
+                }
+         
+                function createHeader(title){
+                    let trTag = document.createElement('tr');
+                    for ( let j = 0; j< title.childNodes.length; j++){
+                        let thTag = document.createElement('th');
+                        thTag.innerHTML = title.childNodes[j].nodeName.toUpperCase();
+                        trTag.appendChild(thTag);
+                    }
+                    return trTag
+                }
+
+    </script>
+
+
+
+
+</body>
+</html>
